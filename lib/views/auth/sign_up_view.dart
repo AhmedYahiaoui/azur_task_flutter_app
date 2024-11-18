@@ -1,5 +1,8 @@
 import 'package:azur_tech_task_app/controllers/auth_controller.dart';
+import 'package:azur_tech_task_app/models/user.dart';
+import 'package:azur_tech_task_app/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   final AuthController authController;
@@ -14,6 +17,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmationController =
+      TextEditingController();
 
   bool _isLoading = false;
 
@@ -28,13 +33,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _passwordController.text,
     );
 
-    if (result) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account created! Please sign in.')),
-        );
-        Navigator.pop(context);
-      }
+    if (result && mounted) {
+      final User user = widget.authController.user!;
+      Provider.of<UserProvider>(context, listen: false).setUser(user);
+      Navigator.pushReplacementNamed(context, '/home');
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -51,28 +53,155 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        height: MediaQuery.of(context).size.height - 50,
+        width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                const SizedBox(height: 60.0),
+                const Text(
+                  "Sign up",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Create your account",
+                  style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+                )
+              ],
             ),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
+            Column(
+              children: <Widget>[
+                TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                      hintText: "Username",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          borderSide: BorderSide.none),
+                      fillColor: Colors.blue.withOpacity(0.1),
+                      filled: true,
+                      prefixIcon: const Icon(Icons.person)),
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                      hintText: "Email",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          borderSide: BorderSide.none),
+                      fillColor: Colors.blue.withOpacity(0.1),
+                      filled: true,
+                      prefixIcon: const Icon(Icons.email)),
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.blue.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.password),
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _passwordConfirmationController,
+                  decoration: InputDecoration(
+                    hintText: "Confirm Password",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(18),
+                        borderSide: BorderSide.none),
+                    fillColor: Colors.blue.withOpacity(0.1),
+                    filled: true,
+                    prefixIcon: const Icon(Icons.password),
+                  ),
+                  obscureText: true,
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _signUp,
-              child: _isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text('Sign Up'),
+            Container(
+              padding: const EdgeInsets.only(top: 3, left: 3),
+              child: ElevatedButton(
+                onPressed: _isLoading ? null : _signUp,
+                style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: Colors.blue,
+                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+              ),
             ),
+            const Center(child: Text("Or")),
+            Container(
+              height: 45,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                  color: Colors.blue,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: const Offset(0, 1), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {},
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Sign In with Google",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text("Already have an account?"),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/');
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(color: Colors.blue),
+                    ))
+              ],
+            )
           ],
         ),
       ),

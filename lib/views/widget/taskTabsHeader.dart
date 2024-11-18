@@ -36,7 +36,7 @@ class _TaskTabsHeaderState extends State<TaskTabsHeader> {
 
     return GestureDetector(
       onTap: () => selectTab(label),
-      child: Column(
+      child: Row(
         children: [
           Text(
             label,
@@ -45,7 +45,7 @@ class _TaskTabsHeaderState extends State<TaskTabsHeader> {
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(width: 10),
           CircleAvatar(
             radius: 12,
             backgroundColor: isSelected ? Colors.blue : Colors.grey[300],
@@ -69,6 +69,7 @@ class _TaskTabsHeaderState extends State<TaskTabsHeader> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         buildTab('All', widget.allCount),
+        const Text('|'),
         buildTab('Today', widget.todayCount),
         buildTab('Favorite', widget.favoriteCount),
         buildTab('Notify', widget.notifyCount),
