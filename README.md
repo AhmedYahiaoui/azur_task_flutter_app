@@ -18,6 +18,7 @@ An advanced task management app with a user-friendly calendar view, notification
 
 The app is built with a modular architecture for better scalability and maintenance.
 
+```bash
 | lib/
 | ├── controllers/
 | │ ├── services/ # Services for API and system-level integrations
@@ -31,6 +32,8 @@ The app is built with a modular architecture for better scalability and maintena
 | test/
 | ├── unit_test/
 | ├── widget_test/
+
+```
 
 ---
 
