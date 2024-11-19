@@ -22,6 +22,7 @@ class _DailyViewState extends State<DailyView> {
   Widget build(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context);
     selectedDate = Provider.of<TaskProvider>(context).selectedDate;
+    _focusedDay = selectedDate;
     final filteredTasks = taskProvider.getTasksByDate(selectedDate);
 
     return Scaffold(
@@ -36,8 +37,8 @@ class _DailyViewState extends State<DailyView> {
               bottom: 12,
             ),
             child: TableCalendar<Task>(
-              firstDay: DateTime.now().subtract(const Duration(days: 365)),
-              lastDay: DateTime.now().add(const Duration(days: 365)),
+              firstDay: DateTime(2000),
+              lastDay: DateTime(2030),
               focusedDay: _focusedDay,
               calendarFormat: CalendarFormat.week, // Only one week displayed
               selectedDayPredicate: (day) => isSameDay(selectedDate, day),

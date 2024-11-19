@@ -4,6 +4,11 @@ import 'package:http/http.dart' as http;
 
 class TaskService {
   final String baseUrl = "https://example.com/api/todo/";
+  late http.Client client;
+
+  TaskService({http.Client? httpClient}) {
+    client = httpClient ?? http.Client();
+  }
 
   Future<Task?> addTask(Task task) async {
     try {

@@ -22,6 +22,7 @@ class _MonthlyViewState extends State<MonthlyView> {
   Widget build(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context);
     _selectedDay = Provider.of<TaskProvider>(context).selectedDate;
+    _focusedDay = _selectedDay ?? DateTime.now();
     final tasks = taskProvider.tasks;
 
     return Scaffold(
