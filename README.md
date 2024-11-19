@@ -51,10 +51,16 @@ Ensure the following are installed on your system:
 3. Run the app::
 
    1. iOS:
-      flutter run -d ios (on simulator, flutter device, get the ID and then flutter run -d ID)
+
+   ```bash
+       flutter run -d ios (on simulator, flutter device, get the ID and then flutter run -d ID)
+   ```
 
    2. Android:
-      flutter run -d android
+
+   ```bash
+       flutter run -d android (on simulator, flutter device, get the ID and then flutter run -d ID)
+   ```
 
 ### **Key Providers**
 
@@ -66,42 +72,71 @@ Ensure the following are installed on your system:
 2. ViewProvider
    Manages the state for toggling views between the Monthly and Daily calendar views.
 
-   Key Methods: - updateView(bool isMonthlyView): Toggles between Monthly and Daily views. - isMonthlyView: Getter for the current view state.
+   Key Methods:
+
+   - updateView(bool isMonthlyView): Toggles between Monthly and Daily views.
+   - isMonthlyView: Getter for the current view state.
 
 3. AuthProvider
    Handles user authentication states.
 
-   Key Methods: - signin(String email, String password): Logs in the user. - signup(String name,String email, String password): Logs in the user. - logout(): Logs out the user.
+   Key Methods:
+
+   - signin(String email, String password): Logs in the user.
+   - signup(String name,String email, String password): Logs in the user.
+   - logout(): Logs out the user.
 
 4. Services
    TaskService
    Responsible for interacting with the backend for task-related operations.
 
-   Key Methods: - fetchTasksFromServer(): Fetches a list of tasks from the server. - sendTasksToServer(List<Task> tasks): Syncs tasks with the server.
+   Key Methods:
+
+   - fetchTasksFromServer(): Fetches a list of tasks from the server.
+   - sendTasksToServer(List<Task> tasks): Syncs tasks with the server.
 
 5. NotificationService
    Manages notifications for tasks.
 
-   Key Methods: - scheduleNotification(DateTime time, String title, String body): Schedules a notification. - cancelNotification(int id): Cancels a scheduled notification.
+   Key Methods:
+
+   - scheduleNotification(DateTime time, String title, String body): Schedules a notification.
+   - cancelNotification(int id): Cancels a scheduled notification.
 
 6. AuthService
    Handles authentication and user sessions.
 
-   Key Methods: - login(String email, String password): Authenticates the user with the server. - logout(): Clears user session data.
+   Key Methods:
+
+   - login(String email, String password): Authenticates the user with the server.
+   - logout(): Clears user session data.
 
 7. Key Screens
    HomeView
 
-   The main entry point of the app. It integrates: - Calendar views (MonthlyView and DailyView). - Task lists and filters.
+   The main entry point of the app. It integrates:
+
+   - Calendar views (MonthlyView and DailyView).
+   - Task lists and filters.
 
 8. ProfileView
-   Displays user details and a categorized task list: - All Tasks - Today’s Tasks - Favorite Tasks - Tasks with Notifications
+   Displays user details and a categorized task list:
+
+   - All Tasks
+   - Today’s Tasks
+   - Favorite Tasks
+   - Tasks with Notifications
 
 9. CalendarView
-   A toggleable calendar interface that allows users to switch between: - MonthlyView: Displays tasks for the selected month. - DailyView: Focuses on tasks for a specific day.
+   A toggleable calendar interface that allows users to switch between:
+
+   - MonthlyView: Displays tasks for the selected month.
+   - DailyView: Focuses on tasks for a specific day.
 
 10. AddTaskBottomSheet
-    A modal bottom sheet to add new tasks with options for: - Setting reminders. - Marking tasks as favorites.
+    A modal bottom sheet to add new tasks with options for:
+    - Setting reminders.
+    - Marking tasks as favorites.
 
 ### ** Running Tests **
 
@@ -109,10 +144,16 @@ Running Tests
 
 Unit tests validate the functionality of services and logic.
 
-- Run unit tests: flutter test test/unit_test/...
+- Run unit tests:
+  ```bash
+      flutter test test/unit_test/...
+  ```
 
 Widget Tests
 
-Widget tests ensure UI components function correctly..
+Widget tests ensure UI components function correctly.
 
-- Run unit tests: flutter test test/widget_test/...
+- Run unit tests:
+  ```bash
+      flutter test test/widget_test/...
+  ```
