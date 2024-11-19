@@ -18,7 +18,19 @@ An advanced task management app with a user-friendly calendar view, notification
 
 The app is built with a modular architecture for better scalability and maintenance.
 
-lib/ ├── controllers/ │ ├── providers/ # State management using Provider │ ├── services/ # Services for API and system-level integrations ├── models/ # Data models for the app ├── views/ # UI components (screens and widgets) │ ├── calendar/ # Calendar-specific views and widgets │ ├── home_view.dart # Main entry point for the app's interface │ ├── profile_view.dart # Profile and task list └── main.dart # App entry point
+| lib/
+| ├── controllers/
+| │ ├── services/ # Services for API and system-level integrations
+| ├── models/ # Data models for the app
+| ├── providers/ # State management using Provider
+| ├── views/ # UI components (screens and widgets)
+| │ ├── calendar/ # Calendar-specific views and widgets
+| │ ├── home_view.dart # Main entry point for the app's interface
+| │ ├── profile_view.dart # Profile and task list
+| └── main.dart # App entry point
+| test/
+| ├── unit_test/
+| ├── widget_test/
 
 ---
 
